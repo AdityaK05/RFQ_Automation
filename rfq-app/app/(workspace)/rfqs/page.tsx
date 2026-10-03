@@ -83,11 +83,11 @@ function getStatusBadgeStyle(status: string) {
     case "AWARDED":
       return "bg-teal-900/60 text-teal-300 border-teal-800/60";
     case "DRAFT":
-      return "bg-zinc-800 text-zinc-400 border-zinc-700";
+      return "bg-muted text-muted-foreground border-border";
     case "CLOSED":
-      return "bg-zinc-900 text-zinc-500 border-zinc-800";
+      return "bg-card text-muted-foreground border-border";
     default:
-      return "bg-zinc-800 text-zinc-400 border-zinc-700";
+      return "bg-muted text-muted-foreground border-border";
   }
 }
 
@@ -102,7 +102,7 @@ function getVendorStatusStyle(status: string) {
     case "NO_QUOTE":
       return "bg-red-950/70 text-red-400 border-red-800/50";
     default:
-      return "bg-zinc-800/70 text-zinc-400 border-zinc-700";
+      return "bg-muted/70 text-muted-foreground border-border";
   }
 }
 
@@ -234,18 +234,18 @@ export default function RFQsPage() {
     {
       key: "lineNumber",
       header: "#",
-      className: "w-10 text-center font-medium text-zinc-500",
+      className: "w-10 text-center font-medium text-muted-foreground",
       render: (row) => row.lineNumber,
     },
     {
       key: "description",
       header: "Description",
-      className: "font-medium text-zinc-100",
+      className: "font-medium text-foreground",
       render: (row) => (
         <div>
-          <p className="font-semibold text-zinc-200">{row.description}</p>
+          <p className="font-semibold text-foreground">{row.description}</p>
           {row.specs && (
-            <p className="text-[11px] text-zinc-500">{row.specs}</p>
+            <p className="text-[11px] text-muted-foreground">{row.specs}</p>
           )}
         </div>
       ),
@@ -253,7 +253,7 @@ export default function RFQsPage() {
     {
       key: "partNumber",
       header: "Part No.",
-      className: "w-28 text-zinc-400 font-mono text-[11px]",
+      className: "w-28 text-muted-foreground font-mono text-[11px]",
       render: (row) => row.partNumber || "—",
     },
     {
@@ -278,7 +278,7 @@ export default function RFQsPage() {
     {
       key: "lineTotal",
       header: "Target Total",
-      className: "w-32 text-right font-medium text-zinc-300",
+      className: "w-32 text-right font-medium text-foreground",
       render: (row) => {
         if (!row.targetPrice) return "—";
         const lineTotal = Number(row.quantity) * Number(row.targetPrice);
@@ -307,20 +307,20 @@ export default function RFQsPage() {
         }
       />
 
-      <div className="flex h-full flex-col overflow-y-auto bg-zinc-950">
+      <div className="flex h-full flex-col overflow-y-auto bg-background">
         {selectedRfq ? (
           isEditing ? (
             <div className="flex-1 p-6 max-w-2xl">
-              <div className="mb-6 flex items-center justify-between border-b border-zinc-800 pb-4">
+              <div className="mb-6 flex items-center justify-between border-b border-border pb-4">
                 <div>
-                  <h2 className="text-base font-semibold text-zinc-100">
+                  <h2 className="text-base font-semibold text-foreground">
                     Edit {selectedRfq.number}
                   </h2>
-                  <p className="text-xs text-zinc-500">{selectedRfq.title}</p>
+                  <p className="text-xs text-muted-foreground">{selectedRfq.title}</p>
                 </div>
                 <button
                   onClick={() => setIsEditing(false)}
-                  className="flex h-8 w-8 items-center justify-center rounded-full text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
+                  className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground"
                 >
                   <X size={15} />
                 </button>
@@ -345,12 +345,12 @@ export default function RFQsPage() {
             </div>
           ) : isComparing ? (
             <div className="flex-1 p-6 space-y-6">
-              <div className="flex items-center justify-between border-b border-zinc-800 pb-5">
+              <div className="flex items-center justify-between border-b border-border pb-5">
                 <div>
-                  <h1 className="text-xl font-bold tracking-tight text-zinc-100">
+                  <h1 className="text-xl font-bold tracking-tight text-foreground">
                     Compare Quotes: {selectedRfq.number}
                   </h1>
-                  <p className="text-sm text-zinc-400 pt-1">
+                  <p className="text-sm text-muted-foreground pt-1">
                     {quotesData.length} valid quote(s) received
                   </p>
                 </div>
@@ -365,25 +365,25 @@ export default function RFQsPage() {
                   </a>
                   <button
                     onClick={() => setIsComparing(false)}
-                    className="flex items-center gap-1.5 rounded-lg border border-zinc-700 bg-zinc-900 px-3.5 py-2 text-xs font-medium text-zinc-300 transition-colors hover:bg-zinc-800"
+                    className="flex items-center gap-1.5 rounded-lg border border-border bg-card px-3.5 py-2 text-xs font-medium text-foreground transition-colors hover:bg-muted"
                   >
                     Back to Details
                   </button>
                 </div>
               </div>
               
-              <div className="overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-900/40">
-                <table className="w-full text-left text-sm text-zinc-300">
-                  <thead className="border-b border-zinc-800 bg-zinc-900/60 text-xs uppercase tracking-wider text-zinc-400">
+              <div className="overflow-x-auto rounded-xl border border-border bg-card/40">
+                <table className="w-full text-left text-sm text-foreground">
+                  <thead className="border-b border-border bg-card/60 text-xs uppercase tracking-wider text-muted-foreground">
                     <tr>
                       <th className="p-3 font-semibold w-12">#</th>
                       <th className="p-3 font-semibold min-w-[200px]">Item Description</th>
                       <th className="p-3 font-semibold w-24">Qty</th>
-                      <th className="p-3 font-semibold w-32 border-r border-zinc-800 text-zinc-500">Target</th>
+                      <th className="p-3 font-semibold w-32 border-r border-border text-muted-foreground">Target</th>
                       {quotesData.map(q => (
                          <th key={q.id} className="p-3 font-semibold min-w-[150px]">
                            {q.vendor?.name}
-                           <div className="text-[10px] text-zinc-500 font-normal mt-0.5">Total: {selectedRfq.currency} {q.totalAmount || "N/A"}</div>
+                           <div className="text-[10px] text-muted-foreground font-normal mt-0.5">Total: {selectedRfq.currency} {q.totalAmount || "N/A"}</div>
                          </th>
                       ))}
                     </tr>
@@ -400,11 +400,11 @@ export default function RFQsPage() {
                        });
 
                        return (
-                        <tr key={item.id} className="hover:bg-zinc-800/30 transition-colors">
-                          <td className="p-3 text-zinc-500">{item.lineNumber}</td>
-                          <td className="p-3 font-medium text-zinc-200">{item.description}</td>
+                        <tr key={item.id} className="hover:bg-muted/30 transition-colors">
+                          <td className="p-3 text-muted-foreground">{item.lineNumber}</td>
+                          <td className="p-3 font-medium text-foreground">{item.description}</td>
                           <td className="p-3">{Number(item.quantity).toLocaleString()} {item.unit}</td>
-                          <td className="p-3 border-r border-zinc-800 text-zinc-500">
+                          <td className="p-3 border-r border-border text-muted-foreground">
                             {item.targetPrice ? Number(item.targetPrice).toLocaleString() : "—"}
                           </td>
                           {quotesData.map(q => {
@@ -413,7 +413,7 @@ export default function RFQsPage() {
                             const isBest = price === minPrice && minPrice !== Infinity;
                             
                             return (
-                              <td key={q.id} className={cn("p-3 font-mono text-[13px]", isBest ? "text-emerald-400 font-bold bg-emerald-900/10" : "text-zinc-400")}>
+                              <td key={q.id} className={cn("p-3 font-mono text-[13px]", isBest ? "text-emerald-400 font-bold bg-emerald-900/10" : "text-muted-foreground")}>
                                 {price ? price.toLocaleString() : "—"}
                               </td>
                             );
@@ -427,7 +427,7 @@ export default function RFQsPage() {
             </div>
           ) : (
             <div className="flex-1 p-6 max-w-4xl space-y-6">
-              <div className="flex items-start justify-between border-b border-zinc-800 pb-5">
+              <div className="flex items-start justify-between border-b border-border pb-5">
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-2.5">
                     <span className="font-mono text-xs font-bold text-blue-400">
@@ -442,22 +442,22 @@ export default function RFQsPage() {
                       {selectedRfq.status}
                     </span>
                   </div>
-                  <h1 className="text-xl font-bold tracking-tight text-zinc-100">
+                  <h1 className="text-xl font-bold tracking-tight text-foreground">
                     {selectedRfq.title}
                   </h1>
-                  <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-400 pt-1">
+                  <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground pt-1">
                     {selectedRfq.dueDate && (
                       <span className="flex items-center gap-1.5">
-                        <Calendar size={13} className="text-zinc-500" />
+                        <Calendar size={13} className="text-muted-foreground" />
                         Deadline: {selectedRfq.dueDate}
                       </span>
                     )}
                     <span className="flex items-center gap-1.5">
-                      <IndianRupee size={13} className="text-zinc-500" />
+                      <IndianRupee size={13} className="text-muted-foreground" />
                       Currency: {selectedRfq.currency}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <Clock size={13} className="text-zinc-500" />
+                      <Clock size={13} className="text-muted-foreground" />
                       Created: {selectedRfq.createdAt.slice(0, 10)}
                     </span>
                   </div>
@@ -482,7 +482,7 @@ export default function RFQsPage() {
                   <button
                     id="rfq-edit-btn"
                     onClick={() => setIsEditing(true)}
-                    className="flex items-center gap-1.5 rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-xs font-medium text-zinc-300 transition-colors hover:bg-zinc-800 hover:text-zinc-100"
+                    className="flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-muted hover:text-foreground"
                   >
                     <Edit2 size={13} />
                     Edit
@@ -490,7 +490,7 @@ export default function RFQsPage() {
                   <button
                     id="rfq-delete-btn"
                     onClick={handleDeleteRfq}
-                    className="flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-800 text-zinc-500 transition-colors hover:border-red-900/40 hover:bg-red-950/40 hover:text-red-400"
+                    className="flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:border-red-900/40 hover:bg-red-950/40 hover:text-red-400"
                   >
                     <Trash2 size={14} />
                   </button>
@@ -498,11 +498,11 @@ export default function RFQsPage() {
               </div>
 
               {selectedRfq.description && (
-                <div className="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-4 space-y-1.5">
-                  <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                <div className="rounded-xl border border-border/80 bg-card/40 p-4 space-y-1.5">
+                  <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     Terms & Instructions
                   </h3>
-                  <p className="text-xs leading-relaxed text-zinc-300">
+                  <p className="text-xs leading-relaxed text-foreground">
                     {selectedRfq.description}
                   </p>
                 </div>
@@ -512,14 +512,14 @@ export default function RFQsPage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Building2 size={15} className="text-blue-400" />
-                    <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-300">
+                    <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground">
                       Participating Vendors ({selectedRfq.vendors.length})
                     </h3>
                   </div>
                 </div>
 
                 {selectedRfq.vendors.length === 0 ? (
-                  <div className="rounded-xl border border-dashed border-zinc-800 p-4 text-center text-xs text-zinc-500">
+                  <div className="rounded-xl border border-dashed border-border p-4 text-center text-xs text-muted-foreground">
                     No vendors invited yet. Click &quot;Invite Vendor&quot; to send this RFQ to suppliers.
                   </div>
                 ) : (
@@ -527,13 +527,13 @@ export default function RFQsPage() {
                     {selectedRfq.vendors.map((vendor) => (
                       <div
                         key={vendor.vendorId}
-                        className="flex items-center justify-between rounded-xl border border-zinc-800 bg-zinc-900/60 p-3"
+                        className="flex items-center justify-between rounded-xl border border-border bg-card/60 p-3"
                       >
                         <div className="min-w-0 flex-1">
-                          <p className="truncate text-xs font-semibold text-zinc-200">
+                          <p className="truncate text-xs font-semibold text-foreground">
                             {vendor.vendorName}
                           </p>
-                          <p className="truncate text-[10px] text-zinc-500">
+                          <p className="truncate text-[10px] text-muted-foreground">
                             {vendor.vendorEmail}
                           </p>
                         </div>
@@ -555,7 +555,7 @@ export default function RFQsPage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <FileText size={15} className="text-blue-400" />
-                    <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-300">
+                    <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground">
                       Line Items ({selectedRfq.items.length})
                     </h3>
                   </div>
@@ -570,10 +570,10 @@ export default function RFQsPage() {
                 />
 
                 {selectedRfq.totalBudget && selectedRfq.totalBudget > 0 && (
-                  <div className="flex justify-end pr-3 pt-1 text-xs text-zinc-400">
+                  <div className="flex justify-end pr-3 pt-1 text-xs text-muted-foreground">
                     <span>
                       Est. Target Total:{" "}
-                      <strong className="text-zinc-100 font-semibold">
+                      <strong className="text-foreground font-semibold">
                         {selectedRfq.currency} {selectedRfq.totalBudget.toLocaleString()}
                       </strong>
                     </span>

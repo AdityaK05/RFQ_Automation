@@ -166,17 +166,17 @@ export default function QuotesReviewPage() {
         }
       />
 
-      <div className="flex h-full flex-col overflow-y-auto bg-zinc-950 p-6">
+      <div className="flex h-full flex-col overflow-y-auto bg-background p-6">
         {selectedQuote ? (
           isEditing ? (
             <div className="max-w-2xl">
-              <div className="mb-6 flex items-center justify-between border-b border-zinc-800 pb-4">
-                <h2 className="text-base font-semibold text-zinc-100">
+              <div className="mb-6 flex items-center justify-between border-b border-border pb-4">
+                <h2 className="text-base font-semibold text-foreground">
                   Edit Quote
                 </h2>
                 <button
                   onClick={() => setIsEditing(false)}
-                  className="flex h-8 w-8 items-center justify-center rounded-full text-zinc-400 hover:bg-zinc-800"
+                  className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground hover:bg-muted"
                 >
                   <XIcon size={15} />
                 </button>
@@ -200,18 +200,18 @@ export default function QuotesReviewPage() {
             </div>
           ) : (
             <div className="max-w-3xl space-y-6">
-              <div className="flex items-start justify-between border-b border-zinc-800 pb-5">
+              <div className="flex items-start justify-between border-b border-border pb-5">
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <Star size={16} className={cn("text-yellow-400", selectedQuote.confidence < 50 && "text-red-400")} />
-                    <h1 className="text-xl font-bold tracking-tight text-zinc-100">
+                    <h1 className="text-xl font-bold tracking-tight text-foreground">
                       Quote from {selectedQuote.vendor?.name}
                     </h1>
                   </div>
-                  <p className="text-sm text-zinc-400">
-                    For RFQ: <span className="font-semibold text-zinc-300">{selectedQuote.rfq?.number}</span> - {selectedQuote.rfq?.title}
+                  <p className="text-sm text-muted-foreground">
+                    For RFQ: <span className="font-semibold text-foreground">{selectedQuote.rfq?.number}</span> - {selectedQuote.rfq?.title}
                   </p>
-                  <p className="text-xs text-zinc-500">
+                  <p className="text-xs text-muted-foreground">
                     Confidence Score: <span className={cn("font-medium", selectedQuote.confidence >= 80 ? "text-emerald-400" : selectedQuote.confidence >= 50 ? "text-yellow-400" : "text-red-400")}>{selectedQuote.confidence || 0}%</span>
                   </p>
                 </div>
@@ -233,7 +233,7 @@ export default function QuotesReviewPage() {
                   </button>
                   <button
                     onClick={() => setIsEditing(true)}
-                    className="flex items-center gap-1.5 rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-xs font-medium text-zinc-300 transition-colors hover:bg-zinc-800"
+                    className="flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-muted"
                   >
                     <Edit2 size={13} />
                     Edit
@@ -241,21 +241,21 @@ export default function QuotesReviewPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 text-sm text-zinc-300">
-                <div className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-4">
-                  <p className="text-xs text-zinc-500 mb-1">Total Amount</p>
-                  <p className="font-semibold text-zinc-100">{selectedQuote.currency} {selectedQuote.totalAmount || "N/A"}</p>
+              <div className="grid grid-cols-2 gap-4 text-sm text-foreground">
+                <div className="rounded-lg border border-border bg-card/50 p-4">
+                  <p className="text-xs text-muted-foreground mb-1">Total Amount</p>
+                  <p className="font-semibold text-foreground">{selectedQuote.currency} {selectedQuote.totalAmount || "N/A"}</p>
                 </div>
-                <div className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-4">
-                  <p className="text-xs text-zinc-500 mb-1">Lead Time</p>
-                  <p className="font-semibold text-zinc-100">{selectedQuote.leadTimeDays ? `${selectedQuote.leadTimeDays} Days` : "N/A"}</p>
+                <div className="rounded-lg border border-border bg-card/50 p-4">
+                  <p className="text-xs text-muted-foreground mb-1">Lead Time</p>
+                  <p className="font-semibold text-foreground">{selectedQuote.leadTimeDays ? `${selectedQuote.leadTimeDays} Days` : "N/A"}</p>
                 </div>
               </div>
 
               {selectedQuote.notes && (
-                <div className="rounded-lg border border-zinc-800 bg-zinc-900/30 p-4">
-                  <p className="text-xs text-zinc-500 mb-2">Notes</p>
-                  <p className="text-sm text-zinc-300">{selectedQuote.notes}</p>
+                <div className="rounded-lg border border-border bg-card/30 p-4">
+                  <p className="text-xs text-muted-foreground mb-2">Notes</p>
+                  <p className="text-sm text-foreground">{selectedQuote.notes}</p>
                 </div>
               )}
             </div>

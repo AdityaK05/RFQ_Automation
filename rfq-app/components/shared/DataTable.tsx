@@ -32,9 +32,9 @@ export default function DataTable<T extends Record<string, unknown>>({
   className = "",
 }: DataTableProps<T>) {
   return (
-    <div className={cn("w-full overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-950", className)}>
+    <div className={cn("w-full overflow-x-auto rounded-xl border border-border bg-background", className)}>
       <table id={id} className="w-full text-left text-xs">
-        <thead className="border-b border-zinc-800 bg-zinc-900/70 text-zinc-400">
+        <thead className="border-b border-border bg-card/70 text-muted-foreground">
           <tr>
             {columns.map((col) => (
               <th
@@ -51,7 +51,7 @@ export default function DataTable<T extends Record<string, unknown>>({
             <tr>
               <td
                 colSpan={columns.length}
-                className="px-4 py-8 text-center text-zinc-500"
+                className="px-4 py-8 text-center text-muted-foreground"
               >
                 {emptyMessage}
               </td>
@@ -68,12 +68,12 @@ export default function DataTable<T extends Record<string, unknown>>({
                   onClick={() => onRowClick?.(row)}
                   className={cn(
                     "transition-colors",
-                    isClickable && "cursor-pointer hover:bg-zinc-900/60",
+                    isClickable && "cursor-pointer hover:bg-card/60",
                     isSelected && "bg-blue-600/10 font-medium"
                   )}
                 >
                   {columns.map((col) => (
-                    <td key={col.key} className={cn("px-4 py-3 text-zinc-200", col.className)}>
+                    <td key={col.key} className={cn("px-4 py-3 text-foreground", col.className)}>
                       {col.render ? col.render(row, index) : (row[col.key] as React.ReactNode)}
                     </td>
                   ))}

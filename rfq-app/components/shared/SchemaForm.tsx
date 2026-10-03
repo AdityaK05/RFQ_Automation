@@ -76,7 +76,7 @@ export default function SchemaForm({
               <div className="flex items-center justify-between">
                 <label
                   htmlFor={fieldId}
-                  className="text-xs font-medium text-zinc-300"
+                  className="text-xs font-medium text-foreground"
                 >
                   {field.label}
                   {field.required && (
@@ -84,7 +84,7 @@ export default function SchemaForm({
                   )}
                 </label>
                 {field.helperText && (
-                  <span className="text-[11px] text-zinc-500">
+                  <span className="text-[11px] text-muted-foreground">
                     {field.helperText}
                   </span>
                 )}
@@ -100,7 +100,7 @@ export default function SchemaForm({
                   placeholder={field.placeholder}
                   rows={4}
                   onChange={(e) => handleFieldChange(field.name, e.target.value)}
-                  className="w-full rounded-lg border border-zinc-800 bg-zinc-900/90 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 transition-colors focus:border-blue-500 focus:bg-zinc-900 focus:outline-none disabled:opacity-50"
+                  className="w-full rounded-lg border border-border bg-card/90 px-3 py-2 text-sm text-foreground placeholder:text-zinc-600 transition-colors focus:border-blue-500 focus:bg-card focus:outline-none disabled:opacity-50"
                 />
               ) : field.type === "select" ? (
                 <select
@@ -110,19 +110,19 @@ export default function SchemaForm({
                   required={field.required}
                   disabled={field.disabled || isSubmitting}
                   onChange={(e) => handleFieldChange(field.name, e.target.value)}
-                  className="w-full rounded-lg border border-zinc-800 bg-zinc-900/90 px-3 py-2 text-sm text-zinc-100 transition-colors focus:border-blue-500 focus:bg-zinc-900 focus:outline-none disabled:opacity-50"
+                  className="w-full rounded-lg border border-border bg-card/90 px-3 py-2 text-sm text-foreground transition-colors focus:border-blue-500 focus:bg-card focus:outline-none disabled:opacity-50"
                 >
-                  <option value="" disabled className="bg-zinc-900 text-zinc-500">
+                  <option value="" disabled className="bg-card text-muted-foreground">
                     Select {field.label.toLowerCase()}…
                   </option>
                   {field.options?.map((opt) => (
-                    <option key={opt.value} value={opt.value} className="bg-zinc-900 text-zinc-100">
+                    <option key={opt.value} value={opt.value} className="bg-card text-foreground">
                       {opt.label}
                     </option>
                   ))}
                 </select>
               ) : field.type === "checkbox" ? (
-                <label className="flex cursor-pointer items-center gap-2.5 pt-1 text-sm text-zinc-300">
+                <label className="flex cursor-pointer items-center gap-2.5 pt-1 text-sm text-foreground">
                   <input
                     id={fieldId}
                     name={field.name}
@@ -130,7 +130,7 @@ export default function SchemaForm({
                     checked={Boolean(value)}
                     disabled={field.disabled || isSubmitting}
                     onChange={(e) => handleFieldChange(field.name, e.target.checked)}
-                    className="h-4 w-4 rounded border-zinc-700 bg-zinc-800 text-blue-600 focus:ring-blue-500 focus:ring-offset-zinc-900"
+                    className="h-4 w-4 rounded border-border bg-muted text-blue-600 focus:ring-blue-500 focus:ring-offset-zinc-900"
                   />
                   <span>{field.placeholder || field.label}</span>
                 </label>
@@ -149,7 +149,7 @@ export default function SchemaForm({
                       field.type === "number" ? (e.target.value === "" ? "" : Number(e.target.value)) : e.target.value
                     )
                   }
-                  className="h-10 w-full rounded-lg border border-zinc-800 bg-zinc-900/90 px-3 text-sm text-zinc-100 placeholder:text-zinc-600 transition-colors focus:border-blue-500 focus:bg-zinc-900 focus:outline-none disabled:opacity-50"
+                  className="h-10 w-full rounded-lg border border-border bg-card/90 px-3 text-sm text-foreground placeholder:text-zinc-600 transition-colors focus:border-blue-500 focus:bg-card focus:outline-none disabled:opacity-50"
                 />
               )}
             </div>
@@ -163,7 +163,7 @@ export default function SchemaForm({
             type="button"
             onClick={onCancel}
             disabled={isSubmitting}
-            className="rounded-lg border border-zinc-700 px-4 py-2 text-xs font-semibold text-zinc-300 transition-colors hover:bg-zinc-800 hover:text-zinc-100 disabled:opacity-50"
+            className="rounded-lg border border-border px-4 py-2 text-xs font-semibold text-foreground transition-colors hover:bg-muted hover:text-foreground disabled:opacity-50"
           >
             {cancelLabel}
           </button>

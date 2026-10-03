@@ -194,7 +194,7 @@ function ComposeModalDialog({
   return (
     <div
       className={cn(
-        "fixed z-50 flex flex-col rounded-xl border border-zinc-700 bg-zinc-950 shadow-2xl shadow-black/80 transition-all duration-200",
+        "fixed z-50 flex flex-col rounded-xl border border-border bg-background shadow-2xl shadow-black/80 transition-all duration-200",
         maximized
           ? "inset-4 sm:inset-10"
           : minimized
@@ -202,12 +202,12 @@ function ComposeModalDialog({
           : "bottom-4 right-4 h-[640px] w-full max-w-[760px]"
       )}
     >
-      <div className="flex h-12 shrink-0 items-center justify-between border-b border-zinc-800 bg-zinc-900 px-4">
+      <div className="flex h-12 shrink-0 items-center justify-between border-b border-border bg-card px-4">
         <div className="flex items-center gap-2">
           <div className="flex h-6 w-6 items-center justify-center rounded bg-blue-600/30 text-blue-400">
             <FileText size={14} />
           </div>
-          <span className="text-sm font-semibold text-zinc-100">
+          <span className="text-sm font-semibold text-foreground">
             {minimized ? (title || "New RFQ") : "New RFQ (Request for Quote)"}
           </span>
         </div>
@@ -216,7 +216,7 @@ function ComposeModalDialog({
           <button
             id="rfq-compose-minimize-btn"
             onClick={() => setMinimized((m) => !m)}
-            className="flex h-7 w-7 items-center justify-center rounded text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
+            className="flex h-7 w-7 items-center justify-center rounded text-muted-foreground hover:bg-muted hover:text-foreground"
           >
             <Minus size={14} />
           </button>
@@ -224,7 +224,7 @@ function ComposeModalDialog({
             <button
               id="rfq-compose-maximize-btn"
               onClick={() => setMaximized((m) => !m)}
-              className="flex h-7 w-7 items-center justify-center rounded text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
+              className="flex h-7 w-7 items-center justify-center rounded text-muted-foreground hover:bg-muted hover:text-foreground"
             >
               {maximized ? <Minimize2 size={13} /> : <Maximize2 size={13} />}
             </button>
@@ -232,7 +232,7 @@ function ComposeModalDialog({
           <button
             id="rfq-compose-close-btn"
             onClick={onClose}
-            className="flex h-7 w-7 items-center justify-center rounded text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
+            className="flex h-7 w-7 items-center justify-center rounded text-muted-foreground hover:bg-muted hover:text-foreground"
           >
             <X size={14} />
           </button>
@@ -248,17 +248,17 @@ function ComposeModalDialog({
               </div>
             )}
 
-            <div className="space-y-1.5 border-b border-zinc-800/80 pb-3">
+            <div className="space-y-1.5 border-b border-border/80 pb-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-medium text-zinc-400">
+                <span className="text-xs font-medium text-muted-foreground">
                   To (Vendors):
                 </span>
-                <span className="text-[11px] text-zinc-500">
+                <span className="text-[11px] text-muted-foreground">
                   {selectedVendorIds.length} vendor(s) selected
                 </span>
               </div>
 
-              <div className="flex flex-wrap items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900/60 p-2 focus-within:border-blue-500">
+              <div className="flex flex-wrap items-center gap-1.5 rounded-lg border border-border bg-card/60 p-2 focus-within:border-blue-500">
                 {selectedVendorIds.map((vendorId) => {
                   const vendor = availableVendors.find((v) => v.id === vendorId);
                   return (
@@ -294,13 +294,13 @@ function ComposeModalDialog({
                         ? "Search and add vendors…"
                         : "Add more vendors…"
                     }
-                    className="w-full bg-transparent px-1 text-xs text-zinc-200 placeholder:text-zinc-600 focus:outline-none"
+                    className="w-full bg-transparent px-1 text-xs text-foreground placeholder:text-zinc-600 focus:outline-none"
                   />
 
                   {vendorSearchOpen && (
-                    <div className="absolute left-0 top-full mt-1.5 z-20 max-h-48 w-72 overflow-y-auto rounded-lg border border-zinc-700 bg-zinc-900 p-1 shadow-xl">
+                    <div className="absolute left-0 top-full mt-1.5 z-20 max-h-48 w-72 overflow-y-auto rounded-lg border border-border bg-card p-1 shadow-xl">
                       {filteredVendors.length === 0 ? (
-                        <div className="px-3 py-2 text-xs text-zinc-500">
+                        <div className="px-3 py-2 text-xs text-muted-foreground">
                           No matching vendors found
                         </div>
                       ) : (
@@ -309,13 +309,13 @@ function ComposeModalDialog({
                             key={vendor.id}
                             type="button"
                             onClick={() => addVendor(vendor.id)}
-                            className="flex w-full items-start justify-between rounded px-2.5 py-1.5 text-left text-xs text-zinc-200 hover:bg-zinc-800"
+                            className="flex w-full items-start justify-between rounded px-2.5 py-1.5 text-left text-xs text-foreground hover:bg-muted"
                           >
                             <div>
-                              <p className="font-medium text-zinc-100">{vendor.name}</p>
-                              <p className="text-[10px] text-zinc-500">{vendor.category || vendor.email}</p>
+                              <p className="font-medium text-foreground">{vendor.name}</p>
+                              <p className="text-[10px] text-muted-foreground">{vendor.category || vendor.email}</p>
                             </div>
-                            <span className="text-[10px] text-zinc-400">★ {vendor.rating}</span>
+                            <span className="text-[10px] text-muted-foreground">★ {vendor.rating}</span>
                           </button>
                         ))
                       )}
@@ -326,7 +326,7 @@ function ComposeModalDialog({
             </div>
 
             <div className="space-y-1.5">
-              <label htmlFor="rfq-title" className="text-xs font-medium text-zinc-400">
+              <label htmlFor="rfq-title" className="text-xs font-medium text-muted-foreground">
                 Subject / RFQ Title <span className="text-red-400">*</span>
               </label>
               <input
@@ -336,13 +336,13 @@ function ComposeModalDialog({
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. Steel Brackets & Hardware Assembly – Batch 4"
-                className="h-10 w-full rounded-lg border border-zinc-800 bg-zinc-900/60 px-3 text-sm text-zinc-100 placeholder:text-zinc-600 transition-colors focus:border-blue-500 focus:outline-none"
+                className="h-10 w-full rounded-lg border border-border bg-card/60 px-3 text-sm text-foreground placeholder:text-zinc-600 transition-colors focus:border-blue-500 focus:outline-none"
               />
             </div>
 
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="space-y-1">
-                <label htmlFor="rfq-due-date" className="flex items-center gap-1.5 text-xs text-zinc-400">
+                <label htmlFor="rfq-due-date" className="flex items-center gap-1.5 text-xs text-muted-foreground">
                   <Calendar size={12} />
                   Submission Deadline
                 </label>
@@ -351,12 +351,12 @@ function ComposeModalDialog({
                   type="date"
                   value={dueDate}
                   onChange={(e) => setDueDate(e.target.value)}
-                  className="h-9 w-full rounded-lg border border-zinc-800 bg-zinc-900/60 px-3 text-xs text-zinc-200 transition-colors focus:border-blue-500 focus:outline-none"
+                  className="h-9 w-full rounded-lg border border-border bg-card/60 px-3 text-xs text-foreground transition-colors focus:border-blue-500 focus:outline-none"
                 />
               </div>
 
               <div className="space-y-1">
-                <label htmlFor="rfq-currency" className="flex items-center gap-1.5 text-xs text-zinc-400">
+                <label htmlFor="rfq-currency" className="flex items-center gap-1.5 text-xs text-muted-foreground">
                   <IndianRupee size={12} />
                   Currency
                 </label>
@@ -364,7 +364,7 @@ function ComposeModalDialog({
                   id="rfq-currency"
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value)}
-                  className="h-9 w-full rounded-lg border border-zinc-800 bg-zinc-900/60 px-3 text-xs text-zinc-200 transition-colors focus:border-blue-500 focus:outline-none"
+                  className="h-9 w-full rounded-lg border border-border bg-card/60 px-3 text-xs text-foreground transition-colors focus:border-blue-500 focus:outline-none"
                 >
                   <option value="INR">INR (₹)</option>
                   <option value="USD">USD ($)</option>
@@ -374,7 +374,7 @@ function ComposeModalDialog({
             </div>
 
             <div className="space-y-1">
-              <label htmlFor="rfq-description" className="text-xs text-zinc-400">
+              <label htmlFor="rfq-description" className="text-xs text-muted-foreground">
                 Instructions / Terms to Vendors
               </label>
               <textarea
@@ -383,17 +383,17 @@ function ComposeModalDialog({
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Include delivery location, inspection standards, payment terms, or quotation validity requirement…"
-                className="w-full rounded-lg border border-zinc-800 bg-zinc-900/60 px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-600 transition-colors focus:border-blue-500 focus:outline-none"
+                className="w-full rounded-lg border border-border bg-card/60 px-3 py-2 text-xs text-foreground placeholder:text-zinc-600 transition-colors focus:border-blue-500 focus:outline-none"
               />
             </div>
 
             <div className="space-y-2 pt-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-semibold text-zinc-200">
+                  <span className="text-xs font-semibold text-foreground">
                     Line Items
                   </span>
-                  <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-[10px] text-zinc-400">
+                  <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground">
                     {items.length} item{items.length > 1 ? "s" : ""}
                   </span>
                 </div>
@@ -401,16 +401,16 @@ function ComposeModalDialog({
                   type="button"
                   id="rfq-add-item-btn"
                   onClick={addLineItem}
-                  className="flex items-center gap-1 rounded-md border border-zinc-700 bg-zinc-800/80 px-2.5 py-1 text-xs font-medium text-zinc-200 transition-colors hover:bg-zinc-700"
+                  className="flex items-center gap-1 rounded-md border border-border bg-muted/80 px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:bg-zinc-700"
                 >
                   <Plus size={13} />
                   Add Line Item
                 </button>
               </div>
 
-              <div className="overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-900/40">
+              <div className="overflow-x-auto rounded-xl border border-border bg-card/40">
                 <table className="w-full text-left text-xs">
-                  <thead className="border-b border-zinc-800 bg-zinc-900 text-zinc-400">
+                  <thead className="border-b border-border bg-card text-muted-foreground">
                     <tr>
                       <th className="w-10 px-3 py-2 text-center">#</th>
                       <th className="px-3 py-2">Description *</th>
@@ -424,8 +424,8 @@ function ComposeModalDialog({
                   </thead>
                   <tbody className="divide-y divide-zinc-800/60">
                     {items.map((item, index) => (
-                      <tr key={index} className="hover:bg-zinc-800/30">
-                        <td className="px-3 py-2 text-center font-medium text-zinc-500">
+                      <tr key={index} className="hover:bg-muted/30">
+                        <td className="px-3 py-2 text-center font-medium text-muted-foreground">
                           {item.lineNumber}
                         </td>
                         <td className="px-2 py-1.5">
@@ -435,7 +435,7 @@ function ComposeModalDialog({
                             value={item.description}
                             onChange={(e) => updateLineItem(index, "description", e.target.value)}
                             placeholder="Part / item description"
-                            className="w-full rounded border border-zinc-800 bg-zinc-900/80 px-2 py-1 text-xs text-zinc-100 placeholder:text-zinc-600 focus:border-blue-500 focus:outline-none"
+                            className="w-full rounded border border-border bg-card/80 px-2 py-1 text-xs text-foreground placeholder:text-zinc-600 focus:border-blue-500 focus:outline-none"
                           />
                         </td>
                         <td className="px-2 py-1.5">
@@ -444,7 +444,7 @@ function ComposeModalDialog({
                             value={item.partNumber || ""}
                             onChange={(e) => updateLineItem(index, "partNumber", e.target.value)}
                             placeholder="Optional"
-                            className="w-full rounded border border-zinc-800 bg-zinc-900/80 px-2 py-1 text-xs text-zinc-100 placeholder:text-zinc-600 focus:border-blue-500 focus:outline-none"
+                            className="w-full rounded border border-border bg-card/80 px-2 py-1 text-xs text-foreground placeholder:text-zinc-600 focus:border-blue-500 focus:outline-none"
                           />
                         </td>
                         <td className="px-2 py-1.5">
@@ -454,14 +454,14 @@ function ComposeModalDialog({
                             required
                             value={item.quantity}
                             onChange={(e) => updateLineItem(index, "quantity", Number(e.target.value))}
-                            className="w-full rounded border border-zinc-800 bg-zinc-900/80 px-2 py-1 text-xs text-zinc-100 focus:border-blue-500 focus:outline-none"
+                            className="w-full rounded border border-border bg-card/80 px-2 py-1 text-xs text-foreground focus:border-blue-500 focus:outline-none"
                           />
                         </td>
                         <td className="px-2 py-1.5">
                           <select
                             value={item.unit}
                             onChange={(e) => updateLineItem(index, "unit", e.target.value)}
-                            className="w-full rounded border border-zinc-800 bg-zinc-900/80 px-1 py-1 text-xs text-zinc-200 focus:border-blue-500 focus:outline-none"
+                            className="w-full rounded border border-border bg-card/80 px-1 py-1 text-xs text-foreground focus:border-blue-500 focus:outline-none"
                           >
                             <option value="PCS">PCS</option>
                             <option value="KG">KG</option>
@@ -484,7 +484,7 @@ function ComposeModalDialog({
                               )
                             }
                             placeholder="0.00"
-                            className="w-full rounded border border-zinc-800 bg-zinc-900/80 px-2 py-1 text-xs text-zinc-100 placeholder:text-zinc-600 focus:border-blue-500 focus:outline-none"
+                            className="w-full rounded border border-border bg-card/80 px-2 py-1 text-xs text-foreground placeholder:text-zinc-600 focus:border-blue-500 focus:outline-none"
                           />
                         </td>
                         <td className="px-2 py-1.5">
@@ -493,7 +493,7 @@ function ComposeModalDialog({
                             value={item.specs || ""}
                             onChange={(e) => updateLineItem(index, "specs", e.target.value)}
                             placeholder="Grade, tolerances, finish"
-                            className="w-full rounded border border-zinc-800 bg-zinc-900/80 px-2 py-1 text-xs text-zinc-100 placeholder:text-zinc-600 focus:border-blue-500 focus:outline-none"
+                            className="w-full rounded border border-border bg-card/80 px-2 py-1 text-xs text-foreground placeholder:text-zinc-600 focus:border-blue-500 focus:outline-none"
                           />
                         </td>
                         <td className="px-2 py-1.5 text-center">
@@ -513,10 +513,10 @@ function ComposeModalDialog({
               </div>
 
               {totalEstimatedBudget > 0 && (
-                <div className="flex justify-end pr-2 text-xs text-zinc-400">
+                <div className="flex justify-end pr-2 text-xs text-muted-foreground">
                   <span>
                     Est. Target Total:{" "}
-                    <strong className="text-zinc-200">
+                    <strong className="text-foreground">
                       {currency} {totalEstimatedBudget.toLocaleString()}
                     </strong>
                   </span>
@@ -525,7 +525,7 @@ function ComposeModalDialog({
             </div>
           </div>
 
-          <div className="flex h-14 shrink-0 items-center justify-between border-t border-zinc-800 bg-zinc-900/90 px-4">
+          <div className="flex h-14 shrink-0 items-center justify-between border-t border-border bg-card/90 px-4">
             <div className="flex items-center gap-2">
               <button
                 type="button"
@@ -547,7 +547,7 @@ function ComposeModalDialog({
                 id="rfq-save-draft-btn"
                 disabled={isSubmitting}
                 onClick={() => handleSubmit(true)}
-                className="rounded-lg border border-zinc-700 bg-zinc-800/80 px-3 py-2 text-xs font-medium text-zinc-300 transition-colors hover:bg-zinc-700 disabled:opacity-50"
+                className="rounded-lg border border-border bg-muted/80 px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-zinc-700 disabled:opacity-50"
               >
                 Save Draft
               </button>
@@ -557,7 +557,7 @@ function ComposeModalDialog({
               type="button"
               id="rfq-discard-btn"
               onClick={onClose}
-              className="flex h-8 w-8 items-center justify-center rounded-full text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               <Trash2 size={14} />
             </button>

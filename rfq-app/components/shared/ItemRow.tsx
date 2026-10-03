@@ -27,15 +27,15 @@ function getTagStyle(tag: string): string {
     case "awarded":
       return "bg-teal-900/60 text-teal-300 border border-teal-800/50";
     case "draft":
-      return "bg-zinc-800 text-zinc-400 border border-zinc-700";
+      return "bg-muted text-muted-foreground border border-border";
     case "closed":
-      return "bg-zinc-900 text-zinc-500 border border-zinc-800";
+      return "bg-card text-muted-foreground border border-border";
     case "active":
       return "bg-green-950/60 text-green-400 border border-green-800/40";
     case "inactive":
-      return "bg-zinc-900 text-zinc-500 border border-zinc-800";
+      return "bg-card text-muted-foreground border border-border";
     default:
-      return "bg-zinc-800 text-zinc-400 border border-zinc-700";
+      return "bg-muted text-muted-foreground border border-border";
   }
 }
 
@@ -45,12 +45,12 @@ export default function ItemRow({ item, selected, onSelect }: ItemRowProps) {
       id={`item-row-${item.id}`}
       onClick={() => onSelect(item.id)}
       className={cn(
-        "group flex w-full items-start gap-3 border-b border-zinc-800/60 px-4 py-3 text-left transition-colors hover:bg-zinc-800/50",
+        "group flex w-full items-start gap-3 border-b border-border/60 px-4 py-3 text-left transition-colors hover:bg-muted/50",
         selected && "bg-blue-600/10 hover:bg-blue-600/15",
-        !item.isRead && "bg-zinc-900"
+        !item.isRead && "bg-card"
       )}
     >
-      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-zinc-700 to-zinc-800 text-xs font-semibold text-zinc-200 ring-1 ring-zinc-700/50">
+      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-zinc-700 to-zinc-800 text-xs font-semibold text-foreground ring-1 ring-zinc-700/50">
         {item.avatarFallback ?? item.from[0]}
       </div>
 
@@ -59,25 +59,25 @@ export default function ItemRow({ item, selected, onSelect }: ItemRowProps) {
           <span
             className={cn(
               "truncate text-sm",
-              item.isRead ? "font-normal text-zinc-400" : "font-semibold text-zinc-100"
+              item.isRead ? "font-normal text-muted-foreground" : "font-semibold text-foreground"
             )}
           >
             {item.from}
           </span>
-          <span className="shrink-0 text-[11px] text-zinc-500">{item.timestamp}</span>
+          <span className="shrink-0 text-[11px] text-muted-foreground">{item.timestamp}</span>
         </div>
 
         <p
           className={cn(
             "truncate text-sm",
-            item.isRead ? "text-zinc-400" : "font-medium text-zinc-200"
+            item.isRead ? "text-muted-foreground" : "font-medium text-foreground"
           )}
         >
           {item.subject}
         </p>
 
         <div className="flex items-center gap-2 mt-0.5">
-          <p className="flex-1 truncate text-xs text-zinc-500">{item.preview}</p>
+          <p className="flex-1 truncate text-xs text-muted-foreground">{item.preview}</p>
           {item.tags?.map((tag) => (
             <span
               key={tag}

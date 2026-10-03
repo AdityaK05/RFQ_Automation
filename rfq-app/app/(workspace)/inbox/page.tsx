@@ -102,13 +102,13 @@ export default function InboxPage() {
 
   return (
     <div className="split-view relative">
-      <div className="flex h-full flex-col w-80 shrink-0 border-r border-zinc-800">
-        <div className="flex items-center justify-between p-4 border-b border-zinc-800">
-           <h2 className="font-semibold text-zinc-100">Inbox</h2>
+      <div className="flex h-full flex-col w-80 shrink-0 border-r border-border">
+        <div className="flex items-center justify-between p-4 border-b border-border">
+           <h2 className="font-semibold text-foreground">Inbox</h2>
            <button
              onClick={handleSync}
              disabled={isSyncing}
-             className="flex items-center gap-1.5 rounded bg-zinc-800 px-2 py-1 text-xs text-zinc-300 hover:bg-zinc-700 disabled:opacity-50"
+             className="flex items-center gap-1.5 rounded bg-muted px-2 py-1 text-xs text-foreground hover:bg-accent hover:text-accent-foreground disabled:opacity-50 transition-colors"
            >
              {isSyncing ? <Loader2 size={12} className="animate-spin" /> : <RefreshCw size={12} />}
              Sync IMAP

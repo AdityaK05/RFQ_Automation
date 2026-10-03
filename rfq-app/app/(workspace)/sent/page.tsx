@@ -93,7 +93,7 @@ export default function SentPage() {
         onSelect={setSelectedId}
         onRefresh={loadEmails}
       />
-      <div className="flex h-full flex-col bg-zinc-950 flex-1 relative">
+      <div className="flex h-full flex-col bg-background flex-1 relative">
         <ReadingPane data={readingData} />
         {selectedEmail?.rfqId && (
           <div className="absolute top-4 right-32 flex items-center gap-2">

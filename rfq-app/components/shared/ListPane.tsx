@@ -27,11 +27,11 @@ export default function ListPane({
   const visible = filter === "unread" ? items.filter((i) => !i.isRead) : items;
 
   return (
-    <div className="flex h-full flex-col border-r border-zinc-800 bg-zinc-950">
-      <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-3">
+    <div className="flex h-full flex-col border-r border-border bg-background">
+      <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <div className="flex items-center gap-2">
-          <h2 className="text-sm font-semibold text-zinc-100">{title}</h2>
-          <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-[10px] text-zinc-400">
+          <h2 className="text-sm font-semibold text-foreground">{title}</h2>
+          <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground">
             {items.length}
           </span>
         </div>
@@ -40,7 +40,7 @@ export default function ListPane({
           <button
             id="list-filter-btn"
             onClick={() => setFilter((f) => (f === "all" ? "unread" : "all"))}
-            className="flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-100"
+            className="flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
             <Filter size={12} />
             {filter === "all" ? "All" : "Unread"}
@@ -48,7 +48,7 @@ export default function ListPane({
           <button
             id="list-refresh-btn"
             onClick={onRefresh}
-            className="flex h-7 w-7 items-center justify-center rounded-full text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300"
+            className="flex h-7 w-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
             <RefreshCw size={13} />
           </button>

@@ -31,7 +31,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-950 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-3xl" />
         <div className="absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-violet-600/10 blur-3xl" />
@@ -43,19 +43,19 @@ export default function LoginPage() {
             <Package size={22} className="text-white" />
           </div>
           <div className="text-center">
-            <h1 className="text-2xl font-bold tracking-tight text-zinc-100">
+            <h1 className="text-2xl font-bold tracking-tight text-foreground">
               RFQ<span className="text-blue-400">Pilot</span>
             </h1>
-            <p className="mt-1 text-sm text-zinc-500">Sign in to your procurement workspace</p>
+            <p className="mt-1 text-sm text-muted-foreground">Sign in to your procurement workspace</p>
           </div>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="space-y-4 rounded-2xl border border-zinc-800 bg-zinc-900/80 p-6 backdrop-blur"
+          className="space-y-4 rounded-2xl border border-border bg-card/80 p-6 backdrop-blur"
         >
           <div className="space-y-1.5">
-            <label htmlFor="login-email" className="text-xs font-medium text-zinc-400">
+            <label htmlFor="login-email" className="text-xs font-medium text-muted-foreground">
               Email address
             </label>
             <input
@@ -66,12 +66,12 @@ export default function LoginPage() {
               value={form.email}
               onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
               placeholder="you@company.com"
-              className="h-10 w-full rounded-lg border border-zinc-700 bg-zinc-800/60 px-3 text-sm text-zinc-100 placeholder:text-zinc-600 transition-colors focus:border-blue-500 focus:bg-zinc-800 focus:outline-none"
+              className="h-10 w-full rounded-lg border border-border bg-muted/60 px-3 text-sm text-foreground placeholder:text-zinc-600 transition-colors focus:border-blue-500 focus:bg-muted focus:outline-none"
             />
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="login-password" className="text-xs font-medium text-zinc-400">
+            <label htmlFor="login-password" className="text-xs font-medium text-muted-foreground">
               Password
             </label>
             <div className="relative">
@@ -83,13 +83,13 @@ export default function LoginPage() {
                 value={form.password}
                 onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
                 placeholder="••••••••"
-                className="h-10 w-full rounded-lg border border-zinc-700 bg-zinc-800/60 px-3 pr-10 text-sm text-zinc-100 placeholder:text-zinc-600 transition-colors focus:border-blue-500 focus:bg-zinc-800 focus:outline-none"
+                className="h-10 w-full rounded-lg border border-border bg-muted/60 px-3 pr-10 text-sm text-foreground placeholder:text-zinc-600 transition-colors focus:border-blue-500 focus:bg-muted focus:outline-none"
               />
               <button
                 type="button"
                 id="toggle-password-btn"
                 onClick={() => setShowPassword((s) => !s)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                 tabIndex={-1}
               >
                 {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}

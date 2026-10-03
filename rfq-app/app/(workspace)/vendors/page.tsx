@@ -242,17 +242,17 @@ export default function VendorsPage() {
         }
       />
 
-      <div className="flex h-full flex-col overflow-y-auto bg-zinc-950">
+      <div className="flex h-full flex-col overflow-y-auto bg-background">
         {panelMode === "create" ? (
           <div className="flex-1 p-6 max-w-2xl">
-            <div className="mb-6 flex items-center justify-between border-b border-zinc-800 pb-4">
+            <div className="mb-6 flex items-center justify-between border-b border-border pb-4">
               <div>
-                <h2 className="text-base font-semibold text-zinc-100">Add New Vendor</h2>
-                <p className="text-xs text-zinc-500">Register a new supplier to send RFQs to</p>
+                <h2 className="text-base font-semibold text-foreground">Add New Vendor</h2>
+                <p className="text-xs text-muted-foreground">Register a new supplier to send RFQs to</p>
               </div>
               <button
                 onClick={() => setPanelMode("view")}
-                className="flex h-8 w-8 items-center justify-center rounded-full text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
+                className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground"
               >
                 <X size={15} />
               </button>
@@ -270,14 +270,14 @@ export default function VendorsPage() {
           </div>
         ) : panelMode === "edit" && selectedVendor ? (
           <div className="flex-1 p-6 max-w-2xl">
-            <div className="mb-6 flex items-center justify-between border-b border-zinc-800 pb-4">
+            <div className="mb-6 flex items-center justify-between border-b border-border pb-4">
               <div>
-                <h2 className="text-base font-semibold text-zinc-100">Edit Vendor</h2>
-                <p className="text-xs text-zinc-500">{selectedVendor.name}</p>
+                <h2 className="text-base font-semibold text-foreground">Edit Vendor</h2>
+                <p className="text-xs text-muted-foreground">{selectedVendor.name}</p>
               </div>
               <button
                 onClick={() => setPanelMode("view")}
-                className="flex h-8 w-8 items-center justify-center rounded-full text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
+                className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground"
               >
                 <X size={15} />
               </button>
@@ -299,27 +299,27 @@ export default function VendorsPage() {
           </div>
         ) : selectedVendor ? (
           <div className="flex-1 p-6 max-w-3xl space-y-6">
-            <div className="flex items-start justify-between border-b border-zinc-800 pb-6">
+            <div className="flex items-start justify-between border-b border-border pb-6">
               <div className="flex items-start gap-4">
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600/30 to-violet-600/30 ring-1 ring-zinc-700">
                   <Building2 size={24} className="text-blue-400" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h1 className="text-xl font-bold text-zinc-100">
+                    <h1 className="text-xl font-bold text-foreground">
                       {selectedVendor.name}
                     </h1>
                     <span
                       className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold ${
                         selectedVendor.isActive
                           ? "bg-green-900/50 text-green-400 border border-green-800/60"
-                          : "bg-zinc-800 text-zinc-500 border border-zinc-700"
+                          : "bg-muted text-muted-foreground border border-border"
                       }`}
                     >
                       {selectedVendor.isActive ? "Active" : "Inactive"}
                     </span>
                   </div>
-                  <p className="mt-0.5 text-xs text-zinc-400">
+                  <p className="mt-0.5 text-xs text-muted-foreground">
                     {selectedVendor.category || "Supplier"}
                   </p>
                   <div className="mt-2 flex items-center gap-1">
@@ -334,7 +334,7 @@ export default function VendorsPage() {
                         }
                       />
                     ))}
-                    <span className="ml-1 text-xs text-zinc-500">
+                    <span className="ml-1 text-xs text-muted-foreground">
                       ({selectedVendor.rating} / 5)
                     </span>
                   </div>
@@ -353,7 +353,7 @@ export default function VendorsPage() {
                 <button
                   id="vendor-edit-btn"
                   onClick={handleStartEdit}
-                  className="flex items-center gap-1.5 rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-xs font-medium text-zinc-300 transition-colors hover:bg-zinc-800 hover:text-zinc-100"
+                  className="flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-muted hover:text-foreground"
                 >
                   <Edit2 size={13} />
                   Edit
@@ -361,7 +361,7 @@ export default function VendorsPage() {
                 <button
                   id="vendor-delete-btn"
                   onClick={handleDeleteVendor}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-800 text-zinc-500 transition-colors hover:border-red-900/40 hover:bg-red-950/40 hover:text-red-400"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:border-red-900/40 hover:bg-red-950/40 hover:text-red-400"
                 >
                   <Trash2 size={14} />
                 </button>
@@ -369,13 +369,13 @@ export default function VendorsPage() {
             </div>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div className="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-4 space-y-3">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+              <div className="rounded-xl border border-border/80 bg-card/40 p-4 space-y-3">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                   Contact Information
                 </h3>
                 <div className="space-y-2 text-xs">
-                  <div className="flex items-center gap-2.5 text-zinc-300">
-                    <Mail size={14} className="text-zinc-500 shrink-0" />
+                  <div className="flex items-center gap-2.5 text-foreground">
+                    <Mail size={14} className="text-muted-foreground shrink-0" />
                     <a
                       href={`mailto:${selectedVendor.email}`}
                       className="hover:text-blue-400 transition-colors"
@@ -384,14 +384,14 @@ export default function VendorsPage() {
                     </a>
                   </div>
                   {selectedVendor.phone && (
-                    <div className="flex items-center gap-2.5 text-zinc-300">
-                      <Phone size={14} className="text-zinc-500 shrink-0" />
+                    <div className="flex items-center gap-2.5 text-foreground">
+                      <Phone size={14} className="text-muted-foreground shrink-0" />
                       <span>{selectedVendor.phone}</span>
                     </div>
                   )}
                   {selectedVendor.website && (
-                    <div className="flex items-center gap-2.5 text-zinc-300">
-                      <Globe size={14} className="text-zinc-500 shrink-0" />
+                    <div className="flex items-center gap-2.5 text-foreground">
+                      <Globe size={14} className="text-muted-foreground shrink-0" />
                       <a
                         href={selectedVendor.website}
                         target="_blank"
@@ -405,24 +405,24 @@ export default function VendorsPage() {
                 </div>
               </div>
 
-              <div className="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-4 space-y-3">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+              <div className="rounded-xl border border-border/80 bg-card/40 p-4 space-y-3">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                   Business & Tax Details
                 </h3>
                 <div className="space-y-2 text-xs">
                   {selectedVendor.gstin && (
-                    <div className="flex items-center gap-2.5 text-zinc-300">
-                      <FileSpreadsheet size={14} className="text-zinc-500 shrink-0" />
+                    <div className="flex items-center gap-2.5 text-foreground">
+                      <FileSpreadsheet size={14} className="text-muted-foreground shrink-0" />
                       <span>GSTIN: {selectedVendor.gstin}</span>
                     </div>
                   )}
                   {selectedVendor.address && (
-                    <div className="flex items-start gap-2.5 text-zinc-300">
-                      <MapPin size={14} className="text-zinc-500 shrink-0 mt-0.5" />
+                    <div className="flex items-start gap-2.5 text-foreground">
+                      <MapPin size={14} className="text-muted-foreground shrink-0 mt-0.5" />
                       <span>{selectedVendor.address}</span>
                     </div>
                   )}
-                  <div className="pt-1 text-zinc-500 text-[11px]">
+                  <div className="pt-1 text-muted-foreground text-[11px]">
                     Participation: {selectedVendor.rfqCount || 0} RFQ(s) sent to date
                   </div>
                 </div>
@@ -430,11 +430,11 @@ export default function VendorsPage() {
             </div>
 
             {selectedVendor.notes && (
-              <div className="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-4 space-y-2">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+              <div className="rounded-xl border border-border/80 bg-card/40 p-4 space-y-2">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                   Procurement Notes
                 </h3>
-                <p className="text-xs leading-relaxed text-zinc-300">
+                <p className="text-xs leading-relaxed text-foreground">
                   {selectedVendor.notes}
                 </p>
               </div>
