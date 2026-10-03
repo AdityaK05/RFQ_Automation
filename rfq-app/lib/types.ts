@@ -1,4 +1,5 @@
-import type { UserRole } from "@prisma/client";
+import type { UserRole, RfqStatus, QuoteStatus, PriceType, EmailDirection, EmailFlag, RfqVendorStatus } from "@prisma/client";
+import "next-auth/jwt";
 
 declare module "next-auth" {
   interface Session {
@@ -49,6 +50,7 @@ export type ReadingPaneData = {
   timestamp: string;
   body: string;
   tags?: string[];
+  attachments?: { filename: string; url?: string; size?: number }[];
 };
 
 export type ComposeFormData = {
@@ -139,4 +141,4 @@ export type RfqComposePayload = {
   status?: RfqStatus;
 };
 
-export type { UserRole, RfqStatus, QuoteStatus, PriceType, EmailDirection, EmailFlag, RfqVendorStatus } from "@prisma/client";
+export type { UserRole, RfqStatus, QuoteStatus, PriceType, EmailDirection, EmailFlag, RfqVendorStatus };

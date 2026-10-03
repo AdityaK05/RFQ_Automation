@@ -13,6 +13,7 @@ import {
   FilePenLine,
   PackageOpen,
   LogOut,
+  Star,
 } from "lucide-react";
 
 const ICON_MAP: Record<string, React.ElementType> = {
@@ -21,6 +22,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   "file-text": FileText,
   "building-2": Building2,
   "file-pen-line": FilePenLine,
+  star: Star,
 };
 
 export default function Sidebar() {

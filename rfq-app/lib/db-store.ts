@@ -640,3 +640,21 @@ export async function deleteRfqRecord(id: string): Promise<boolean> {
   mockRfqs = mockRfqs.filter((r) => r.id !== id);
   return mockRfqs.length < initialLength;
 }
+
+export async function fetchEmails(direction?: string) {
+  const dbAvailable = await isDatabaseAvailable();
+  if (dbAvailable) {
+    try {
+      const whereClause = direction ? { direction: direction as any } : {};
+      const emails = await prisma.email.findMany({
+        where: whereClause,
+        orderBy: { receivedAt: 'desc' },
+      });
+      return emails;
+    } catch (e) {
+      console.error(e);
+      return [];
+    }
+  }
+  return [];
+}

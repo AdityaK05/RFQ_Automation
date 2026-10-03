@@ -5,5 +5,6 @@ export const NAV_ITEMS: NavItem[] = [
   { id: "sent",    label: "Sent",    icon: "send",          href: "/sent" },
   { id: "rfqs",   label: "RFQs",    icon: "file-text",     href: "/rfqs",    count: 4 },
   { id: "vendors", label: "Vendors", icon: "building-2",    href: "/vendors" },
-  { id: "drafts",  label: "Drafts",  icon: "file-pen-line", href: "/drafts",  count: 2 },
+  { id: "quotes",  label: "Review",  icon: "star",          href: "/quotes",  count: 3 },
+  { id: "drafts",  label: "Drafts",  icon: "file-pen-line", href: "/drafts" },
 ];

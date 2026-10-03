@@ -17,6 +17,8 @@ import {
   Clock,
   Send,
   X,
+  Download,
+  BarChart2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -108,10 +110,13 @@ export default function RFQsPage() {
   const { openCompose } = useCompose();
 
   const [rfqs, setRfqs] = useState<RfqRecord[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [isComparing, setIsComparing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [quotesData, setQuotesData] = useState<any[]>([]);
 
   const loadRfqs = useCallback(() => {
     fetch("/api/rfqs")
@@ -133,14 +138,41 @@ export default function RFQsPage() {
     function handleRfqCreated() {
       loadRfqs();
     }
-
+    
+    function handleSearch() {
+      const q = new URLSearchParams(window.location.search).get("q") || "";
+      setSearchQuery(q.toLowerCase());
+    }
+    
+    handleSearch(); // init
+    window.addEventListener("search", handleSearch);
     window.addEventListener("rfq-created", handleRfqCreated);
-    return () => window.removeEventListener("rfq-created", handleRfqCreated);
+    return () => {
+      window.removeEventListener("search", handleSearch);
+      window.removeEventListener("rfq-created", handleRfqCreated);
+    };
   }, [loadRfqs]);
 
   const selectedRfq = rfqs.find((r) => r.id === selectedId) || null;
+  
+  useEffect(() => {
+    if (isComparing && selectedRfq) {
+      fetch(`/api/quotes?rfqId=${selectedRfq.id}`)
+        .then(r => r.json())
+        .then(d => {
+          if (d.quotes) setQuotesData(d.quotes.filter((q: any) => ["RECEIVED", "SHORTLISTED", "AWARDED"].includes(q.status)));
+        });
+    }
+  }, [isComparing, selectedRfq]);
 
-  const listItems: ItemRowData[] = rfqs.map((rfq) => ({
+  const filteredRfqs = rfqs.filter(r => 
+    !searchQuery || 
+    r.title.toLowerCase().includes(searchQuery) || 
+    r.number.toLowerCase().includes(searchQuery) ||
+    r.vendors.some(v => v.vendorName.toLowerCase().includes(searchQuery))
+  );
+
+  const listItems: ItemRowData[] = filteredRfqs.map((rfq) => ({
     id: rfq.id,
     from: rfq.number,
     subject: rfq.title,
@@ -154,6 +186,7 @@ export default function RFQsPage() {
   function handleSelectRfq(id: string) {
     setSelectedId(id);
     setIsEditing(false);
+    setIsComparing(false);
     setErrorMessage(null);
   }
 
@@ -310,6 +343,88 @@ export default function RFQsPage() {
                 errorMessage={errorMessage}
               />
             </div>
+          ) : isComparing ? (
+            <div className="flex-1 p-6 space-y-6">
+              <div className="flex items-center justify-between border-b border-zinc-800 pb-5">
+                <div>
+                  <h1 className="text-xl font-bold tracking-tight text-zinc-100">
+                    Compare Quotes: {selectedRfq.number}
+                  </h1>
+                  <p className="text-sm text-zinc-400 pt-1">
+                    {quotesData.length} valid quote(s) received
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <a
+                    href={`/api/quotes/export?rfqId=${selectedRfq.id}`}
+                    download
+                    className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3.5 py-2 text-xs font-semibold text-white transition-all hover:bg-emerald-500"
+                  >
+                    <Download size={13} />
+                    Export Excel
+                  </a>
+                  <button
+                    onClick={() => setIsComparing(false)}
+                    className="flex items-center gap-1.5 rounded-lg border border-zinc-700 bg-zinc-900 px-3.5 py-2 text-xs font-medium text-zinc-300 transition-colors hover:bg-zinc-800"
+                  >
+                    Back to Details
+                  </button>
+                </div>
+              </div>
+              
+              <div className="overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-900/40">
+                <table className="w-full text-left text-sm text-zinc-300">
+                  <thead className="border-b border-zinc-800 bg-zinc-900/60 text-xs uppercase tracking-wider text-zinc-400">
+                    <tr>
+                      <th className="p-3 font-semibold w-12">#</th>
+                      <th className="p-3 font-semibold min-w-[200px]">Item Description</th>
+                      <th className="p-3 font-semibold w-24">Qty</th>
+                      <th className="p-3 font-semibold w-32 border-r border-zinc-800 text-zinc-500">Target</th>
+                      {quotesData.map(q => (
+                         <th key={q.id} className="p-3 font-semibold min-w-[150px]">
+                           {q.vendor?.name}
+                           <div className="text-[10px] text-zinc-500 font-normal mt-0.5">Total: {selectedRfq.currency} {q.totalAmount || "N/A"}</div>
+                         </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-zinc-800/50">
+                    {selectedRfq.items.map((item) => {
+                       // Find best price for highlighting
+                       let minPrice = Infinity;
+                       quotesData.forEach(q => {
+                         const qi = q.items.find((i:any) => i.rfqItemId === item.id);
+                         if (qi && Number(qi.unitPrice) > 0 && Number(qi.unitPrice) < minPrice) {
+                           minPrice = Number(qi.unitPrice);
+                         }
+                       });
+
+                       return (
+                        <tr key={item.id} className="hover:bg-zinc-800/30 transition-colors">
+                          <td className="p-3 text-zinc-500">{item.lineNumber}</td>
+                          <td className="p-3 font-medium text-zinc-200">{item.description}</td>
+                          <td className="p-3">{Number(item.quantity).toLocaleString()} {item.unit}</td>
+                          <td className="p-3 border-r border-zinc-800 text-zinc-500">
+                            {item.targetPrice ? Number(item.targetPrice).toLocaleString() : "—"}
+                          </td>
+                          {quotesData.map(q => {
+                            const qi = q.items.find((i:any) => i.rfqItemId === item.id);
+                            const price = qi ? Number(qi.unitPrice) : null;
+                            const isBest = price === minPrice && minPrice !== Infinity;
+                            
+                            return (
+                              <td key={q.id} className={cn("p-3 font-mono text-[13px]", isBest ? "text-emerald-400 font-bold bg-emerald-900/10" : "text-zinc-400")}>
+                                {price ? price.toLocaleString() : "—"}
+                              </td>
+                            );
+                          })}
+                        </tr>
+                       );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           ) : (
             <div className="flex-1 p-6 max-w-4xl space-y-6">
               <div className="flex items-start justify-between border-b border-zinc-800 pb-5">
@@ -349,6 +464,13 @@ export default function RFQsPage() {
                 </div>
 
                 <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setIsComparing(true)}
+                    className="flex items-center gap-1.5 rounded-lg bg-emerald-600/20 border border-emerald-500/30 px-3.5 py-2 text-xs font-semibold text-emerald-400 transition-all hover:bg-emerald-600/30"
+                  >
+                    <BarChart2 size={13} />
+                    Compare
+                  </button>
                   <button
                     id="rfq-detail-compose-btn"
                     onClick={() => openCompose({ initialTitle: selectedRfq.title })}

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { fetchAllRfqs, createRfqRecord, updateRfqRecord, deleteRfqRecord } from "@/lib/db-store";
+import { sendRfqEmail } from "@/lib/mailer";
 
 export async function GET() {
   const rfqs = await fetchAllRfqs();
@@ -16,6 +17,16 @@ export async function POST(request: Request) {
       );
     }
     const created = await createRfqRecord(body);
+
+    if (created.status === "SENT" && created.vendors.length > 0) {
+      // Send to each vendor conceptually in background
+      for (const vendor of created.vendors) {
+        const vendorData = { id: vendor.vendorId, email: vendor.vendorEmail, name: vendor.vendorName };
+        const bodyText = body.description || `Please find attached the RFQ for ${created.title}.`;
+        await sendRfqEmail(created, vendorData, created.title, bodyText, false);
+      }
+    }
+
     return NextResponse.json({ rfq: created }, { status: 201 });
   } catch (_) {
     return NextResponse.json({ error: "Failed to create RFQ" }, { status: 500 });
